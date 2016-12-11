@@ -1,0 +1,14 @@
+﻿<Window x:Class="MoodMusic.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoodMusic.UI"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="240" Margin="10,10,0,0" VerticalAlignment="Top" Width="500"/>
+        <Button x:Name="button" Content="Загрузить фотографию" HorizontalAlignment="Left" Margin="154,287,0,0" VerticalAlignment="Top" Width="154" Click="LoadPicture_Click"/>
+
+    </Grid>
+</Window>
