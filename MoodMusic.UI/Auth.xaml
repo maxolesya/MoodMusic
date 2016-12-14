@@ -7,7 +7,13 @@
         mc:Ignorable="d"
         Title="Auth" Height="300" Width="300">
     <Grid Loaded="Loaded_Window">
-        <WebBrowser  x:Name="webBrowser" HorizontalAlignment="Left" Height="272" VerticalAlignment="Top" Width="295" Navigating="webBrowser_Navigating" LoadCompleted="webBrowser_LoadCompleted"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WebBrowser  x:Name="webBrowser" Grid.ColumnSpan="2" Grid.RowSpan="2"    Navigating="webBrowser_Navigating" LoadCompleted="webBrowser_LoadCompleted"/>
 
     </Grid>
 </Window>

@@ -7,8 +7,81 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
     <Grid>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="240" Margin="10,10,0,0" VerticalAlignment="Top" Width="500"/>
-        <Button x:Name="button" Content="Загрузить фотографию" HorizontalAlignment="Left" Margin="154,287,0,0" VerticalAlignment="Top" Width="154" Click="LoadPicture_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition   />
+            <RowDefinition  Height="0"/>
+            <RowDefinition MaxHeight="60" />
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <MediaElement  x:Name="mediaPlayer" Grid.Row="1" LoadedBehavior="Manual" Grid.Column="0" Stretch="None" Margin="0,0,0,69.5" Grid.RowSpan="2"/>
+        <StatusBar Grid.Row="2" Margin="0,0,0,0.5" Background="Black" Grid.Column="0">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="50" />
+                            <ColumnDefinition Width="43*" />
+                            <ColumnDefinition Width="Auto" MinWidth="274" />
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Margin="0,-1,0,1" Grid.Row="1">
+                <TextBlock Name="durationProgressStatus" Foreground="#FFFF1818" >00:00:00</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Stretch">
+                <Slider Name="sliderDurationProgress" Thumb.DragCompleted="sliderDurationProgress_DragCompleted"  Thumb.DragStarted="sliderDurationProgress_DragStarted" ValueChanged="sliderDurationProgress_ValueChanged">
+                    <Slider.Background>
+                        <LinearGradientBrush EndPoint="0,0" StartPoint="1,0">
+                            <GradientStop Color="Red" Offset="0.5"/>
+                        </LinearGradientBrush>
+                    </Slider.Background>
+                </Slider>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Stretch">
+                <Button Name="button_prev" Margin="0,0,2,0" Height="23" Content="prev" Click="button_prev_Click"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"  Width="52" >
+                <Button Name="button_play_pause" Width="42" Content="play" Height="24" Click="button_play_pause_Click"/>
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="2" Grid.Row="0"  >
+                <Button Name="button_next" Height="24" Width="42" Content="next" Click="button_next_Click"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="4" Grid.Row="0" HorizontalAlignment="Right">
+                <Label Name="label_tracks" Content="Треки: " />
+            </StatusBarItem>
+        </StatusBar>
+
+        <ListBox Grid.Column="0" x:Name="listBox" Margin="0,0,87,0"  VerticalAlignment="Top" Grid.Row="0"  MouseDoubleClick="listBox_MouseDoubleClick" Height="138">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="Audio">
+                    <Grid Margin="0 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                           
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"  Margin="5 0 20 0" FontFamily="Arial" FontSize="12" Text="{Binding artist}"/>
+                       
+                        <TextBlock Grid.Column="2" FontFamily="Helvetica" FontSize="12" Text="{Binding title}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="0" x:Name="button" Content="Загрузить фотографию" HorizontalAlignment="Left" Margin="163,207,0,0" VerticalAlignment="Top" Width="154" Click="LoadPicture_Click" Height="20"/>
+        <DataGrid Grid.Column="0"  Grid.Row="0" x:Name="dataGrid" VerticalAlignment="Bottom" Margin="10,143,0,0"  Height="29" Width="500"/>
 
     </Grid>
 </Window>

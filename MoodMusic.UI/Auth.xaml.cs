@@ -36,19 +36,28 @@ namespace MoodMusic.UI
 
         private void webBrowser_LoadCompleted(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
-            webBrowser.ToolTip = "Завершено";
-            string url = webBrowser.Source.ToString();
-
-            string l = url.Split(new char[] { '#' })[1];
-            if (l[0].Equals('a'))
+            try
             {
-                Settings1.Default.auth = true;
-                Settings1.Default.token = l.Split('&')[0].Split('=')[1];
-                Settings1.Default.id = l.Split('=')[3];
-                MessageBox.Show("OK");
+                webBrowser.ToolTip = "Завершено";
+                string url = webBrowser.Source.ToString();
 
+                string l = url.Split(new char[] { '#' })[1];
+                if (l[0].Equals('a'))
+                {
+                    Settings1.Default.auth = true;
+                    Settings1.Default.token = l.Split('&')[0].Split('=')[1];
+                    Settings1.Default.id = l.Split('=')[3];
+                    MessageBox.Show("OK");
+
+                }
             }
-            this.Close();
+            catch (Exception)
+            {
+
+                MessageBox.Show("Проверьте соединение с интернетом");
+            }
+
+            // this.Close();
         }
     }
 }

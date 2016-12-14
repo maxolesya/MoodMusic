@@ -58,5 +58,29 @@ namespace MoodMusic.UI {
                 this["auth"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool vkmusic {
+            get {
+                return ((bool)(this["vkmusic"]));
+            }
+            set {
+                this["vkmusic"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool datamusic {
+            get {
+                return ((bool)(this["datamusic"]));
+            }
+            set {
+                this["datamusic"] = value;
+            }
+        }
     }
 }

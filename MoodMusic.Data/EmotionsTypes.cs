@@ -19,7 +19,7 @@ namespace MoodMusic.Data
         public override string ToString()
         {
             
-            return Happiness + " fear" + Fear + " " + Anger+" surprise "+Surprise;
+            return "happiness" + Happiness + " fear" + Fear + " " + Anger+" surprise "+Surprise;
         }
     }
     
