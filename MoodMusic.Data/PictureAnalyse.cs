@@ -20,8 +20,8 @@ namespace MoodMusic.Data
        static List<IEmotion> checkList = new List<IEmotion> {
             new Alarm(),
             new Anger(),
+            new Depression(),
             new Contempt(),
-            new Disgust(),
             new Disgust(),
             new Fear(),
             new Happiness(),
@@ -29,6 +29,7 @@ namespace MoodMusic.Data
         new Neutral(),
         new Sadness(),
         new Suprise(),
+        new Confidence(),
         new Default()
         };
         public static async Task<EmotionsTypes> Compare(Stream stream)

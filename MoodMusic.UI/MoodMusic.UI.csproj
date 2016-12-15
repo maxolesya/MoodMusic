@@ -145,6 +145,19 @@
   <ItemGroup>
     <Resource Include="Icons\Reservoir-fluid-Meeting.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\buttonPrev.png" />
+    <Resource Include="Icons\next.png" />
+    <Resource Include="Icons\pause.png" />
+    <Resource Include="Icons\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\1334139357-1090009-0064229_www.nevseoboi.com.ua.jpg" />
+    <Resource Include="Icons\1922.jpg" />
+    <Resource Include="Icons\fioletovyy_goluboy_fon_2560x1600.jpg" />
+    <Resource Include="Icons\Groove Reflexion.jpg" />
+    <Resource Include="Icons\setwalls.ru-57035.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

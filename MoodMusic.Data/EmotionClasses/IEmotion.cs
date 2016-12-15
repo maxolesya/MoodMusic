@@ -8,8 +8,7 @@ namespace MoodMusic.Data.EmotionClasses
 {
     public enum Emotions
     {
-        Happiness,
-       
+        Happiness,     
         Anger,
         Sadness,
         Surprise,
@@ -17,14 +16,11 @@ namespace MoodMusic.Data.EmotionClasses
         Fear,
         Disgust,
         Contempt,
-        Joy,
-        Delight,
+        Joy,    
         Alarm,
-        Depression,
-        Despair,
-        Confidence,
-        Curiosity, Default
-
+        Depression,     
+        Confidence  
+      
     }
     interface IEmotion
     {
@@ -32,14 +28,4 @@ namespace MoodMusic.Data.EmotionClasses
        Emotions GetEmotion();
 
     }
-
-    //объект check
-    //внутри 
-    //цикл по всем классам
-    //возвращает эмоции 
-    //получию массив даблов каждый из чеков проверяет
-
-    //приним массив возвр фолс
-
-    //второй вернет значение енума эмоции
 }

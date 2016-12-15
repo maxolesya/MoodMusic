@@ -31,11 +31,21 @@ namespace MoodMusic.UI
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
+    {//наши траблы
+        //дизайн
+        //аудиозаписи начинаются сначала
+        //не работает вебка
+        //Никита наложал в бд
+        //Авторизация, непонятно что с окном
+        //Надо сделать кучу селфи проверять эмоции
+        //Скачать дефолтные аудиозаписи (Стас Мхайлов, лабутены, бьютифул дей, пугающая музыка из фильмов, о боже какой мужчина, подозрительная музыка, а м э лузер, еврибади хертс)
+        //Надо юзать свойство ритма
+        //популярные аудиозаписи!!!
         int currentIndex = 0;
         bool sliderIsCaptured = false;
         bool mediaPlayerIsPlaying = false;
         bool mediaPlayerIsPaused = false;
+        ImageBrush content = new ImageBrush();
         VKService vk;
         public MainWindow()
         {
@@ -94,7 +104,7 @@ namespace MoodMusic.UI
                 FileStream s = new FileStream(dlg.FileName, FileMode.Open);
                 EmotionsTypes emotion = await PictureAnalyse.Compare(s);
                 emotionlist.Add(emotion);
-                dataGrid.ItemsSource = emotionlist;              
+                //dataGrid.ItemsSource = emotionlist;              
                 MessageBox.Show(PictureAnalyse.GetEmotion(emotion).ToString());
                 List<int> list = PictureAnalyse.genres_dictionary[PictureAnalyse.GetEmotion(emotion)];
 
@@ -105,26 +115,28 @@ namespace MoodMusic.UI
                 s.Close();
 
             }
-            var player = new MediaPlayer();
+          /*  var player = new MediaPlayer();
             player.MediaFailed += (s, e1) => MessageBox.Show("Error");
             player.Open(new Uri(vk.AudioList[1].url, UriKind.RelativeOrAbsolute));
-            player.Play();
+            player.Play();*/
            
 
             //require - design - implem - verific - maintenance
             //test driven development
             //red green refactor
 
-            //необходима фабрика и интерфейсы для анализа фотографии
         }
 
         private void listBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Stop();
+
             if (listBox.SelectedItem!=null )
             {
-                mediaPlayer.Source = new Uri((listBox.SelectedItem as Audio).url);
 
+                mediaPlayer.Source = new Uri((listBox.SelectedItem as Audio).url);
+                content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
+                button_play_pause.Background = content;
                 mediaPlayer.Play();
                 mediaPlayerIsPlaying = true;
                 currentIndex = listBox.SelectedIndex;
@@ -162,17 +174,22 @@ namespace MoodMusic.UI
         }
 
         private void button_play_pause_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             if (mediaPlayerIsPlaying)
             {
                 if (mediaPlayerIsPaused)
                 {
+
+                    content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
                     mediaPlayer.Play();
+                    button_play_pause.Background = content;
                     mediaPlayerIsPlaying = true;
                     mediaPlayerIsPaused = false;
                 }
                 else
                 {
+                    content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\play.png"));
+                    button_play_pause.Background = content;
                     mediaPlayer.Pause();
                     mediaPlayerIsPaused = true;
                 }

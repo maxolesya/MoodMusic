@@ -84,8 +84,10 @@
     <Compile Include="Context.cs" />
     <Compile Include="EmotionClasses\Alarm.cs" />
     <Compile Include="EmotionClasses\Anger.cs" />
+    <Compile Include="EmotionClasses\Confidence.cs" />
     <Compile Include="EmotionClasses\Contempt.cs" />
     <Compile Include="EmotionClasses\Default.cs" />
+    <Compile Include="EmotionClasses\Depression.cs" />
     <Compile Include="EmotionClasses\Disgust.cs" />
     <Compile Include="EmotionClasses\Fear.cs" />
     <Compile Include="EmotionClasses\Happiness.cs" />
@@ -94,6 +96,7 @@
     <Compile Include="EmotionClasses\Neutral.cs" />
     <Compile Include="EmotionClasses\Sadness.cs" />
     <Compile Include="EmotionClasses\Suprise.cs" />
+    <Compile Include="EmotionGenreRhythmCombination.cs" />
     <Compile Include="EmotionsTypes.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="Genre.cs" />
