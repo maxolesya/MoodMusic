@@ -60,7 +60,7 @@ namespace MoodMusic.UI.ViewModel
             }
             _audioService.GetAudioList(Settings1.Default.id, Settings1.Default.token);
             AudioList = _audioService.AudioList;
-            AudioList.Add(new Audio() { artist = "gdfgdg", title = "gdfgg"});
+           
         }
         private async void Process()
         {
