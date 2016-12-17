@@ -33,9 +33,17 @@ namespace MoodMusic.Data
                 {
                     _audioService = new VKService();
                 }
+                else
+                {
+                    _audioService = new SystemAudio();
+                }
             }
 
             return _audioService;
-        }     
+        }
+
+       
+
+
     }
 }
