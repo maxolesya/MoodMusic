@@ -98,8 +98,12 @@
     <Compile Include="EmotionClasses\Suprise.cs" />
     <Compile Include="EmotionGenreRhythmCombination.cs" />
     <Compile Include="EmotionsTypes.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="Genre.cs" />
+    <Compile Include="IAudioService.cs" />
+    <Compile Include="IDialogWindow.cs" />
+    <Compile Include="IPictureProcess.cs" />
     <Compile Include="Migrations\201612142343299_Initial.cs" />
     <Compile Include="Migrations\201612142343299_Initial.Designer.cs">
       <DependentUpon>201612142343299_Initial.cs</DependentUpon>

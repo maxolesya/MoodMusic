@@ -19,8 +19,6 @@ namespace MoodMusic.UI
     /// </summary>
     public partial class Auth : Window
     {
-        bool firstAuth = false;
-
         public Auth()
         {
             InitializeComponent();
@@ -40,27 +38,20 @@ namespace MoodMusic.UI
         {
             try
             {
-                if (!Settings1.Default.auth)
+                string url = webBrowser.Source.ToString();
+                if (url.Contains("#access"))
                 {
-                    string url = webBrowser.Source.ToString();
-                    MessageBox.Show(url);
+                 
                     string l = url.Split(new char[] { '#' })[1];
                     if (l[0].Equals('a'))
                     {
                         Settings1.Default.auth = true;
                         Settings1.Default.token = l.Split('&')[0].Split('=')[1];
                         Settings1.Default.id = l.Split('=')[3];
-                        MessageBox.Show("OK");
-
-                       // webBrowser.Navigate("https://vk.com/id" + Settings1.Default.id);
+                        //Close();
+                        webBrowser.Navigate("https://vk.com/id" + Settings1.Default.id);
                     }
                 }
-                else
-                {
-
-                }
-                Close();
-
             }
             catch (Exception e1)
             {
@@ -69,6 +60,13 @@ namespace MoodMusic.UI
             }
 
             // this.Close();
+        }
+
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MainWindow m = new MainWindow();
+            m.Show();
         }
     }
 }

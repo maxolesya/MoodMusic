@@ -9,9 +9,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;
 
+
 namespace MoodMusic.Data
 {
-    public class VKService
+    public class VKService : IAudioService
     {
         public event Action<List<Audio>> onAudioListDownloaded;
         private List<Audio> audiolist;
@@ -21,14 +22,13 @@ namespace MoodMusic.Data
             get { return audiolist; }
            
         }
-
         public void GetAudioList( string id, string token)
         {           
           
             using (var client = new HttpClient())
             {
 
-                var result =  client.GetStringAsync("https://api.vk.com/method/audio.get?owner_id=" +id + "&need_user=0&access_token=" +token).Result;
+                var result =  client.GetStringAsync($"https://api.vk.com/method/audio.get?owner_id={id}&need_user=0&access_token={token}").Result;
                 JToken jtoken = JToken.Parse(result);
                 audiolist = jtoken["response"].Children().Skip(1).Select(c => c.ToObject<Audio>()).ToList();
                 if (audiolist.Count==0)

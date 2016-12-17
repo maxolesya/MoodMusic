@@ -1,0 +1,22 @@
+﻿<Window x:Class="MoodMusic.UI.HintWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MoodMusic.UI"
+        mc:Ignorable="d"
+        Title="Подсказка пользователю" Height="300" Width="300" WindowStyle="None">
+    <Window.Background>
+        <ImageBrush ImageSource="Icons/1334139357-1090009-0064229_www.nevseoboi.com.ua.jpg"/>
+    </Window.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap" Margin="20" Text="Для продолжения Вам необходимо авторизоваться ВКонтакте. Для этого в браузере войдите в свой аккаунт и разрешите доступ к Вашим аудиозаписям. После закройте окно. Приятного прослушивания!"  HorizontalAlignment="Center" VerticalAlignment="Top" TextAlignment="Center" FontFamily="Segoe Script" Foreground="#FFFFDD9B"/>
+        <Button x:Name="button" Content="Далее"  VerticalAlignment="Bottom" Width="75" Margin="10" HorizontalAlignment="Right" FontFamily="Segoe Script" Foreground="#FFFFDD9B" Background="#FF0E0E0E" Click="button_Click"/>
+    </Grid>
+</Window>

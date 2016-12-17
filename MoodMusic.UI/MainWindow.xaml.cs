@@ -24,6 +24,8 @@ using System.Drawing;
 using System.Reflection;
 using System.Media;
 using System.Windows.Threading;
+using System.Windows.Interactivity;
+using MoodMusic.UI.ViewModel;
 
 namespace MoodMusic.UI
 {
@@ -31,22 +33,20 @@ namespace MoodMusic.UI
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {//наши траблы
-        //дизайн
+    {//наши траблы      
         //аудиозаписи начинаются сначала
         //не работает вебка
-        //Никита наложал в бд
-        //Авторизация, непонятно что с окном
+        //Никита наложал в бд     
         //Надо сделать кучу селфи проверять эмоции
         //Скачать дефолтные аудиозаписи (Стас Мхайлов, лабутены, бьютифул дей, пугающая музыка из фильмов, о боже какой мужчина, подозрительная музыка, а м э лузер, еврибади хертс)
-        //Надо юзать свойство ритма
-        //популярные аудиозаписи!!!
+        //Надо юзать свойство ритма     
         int currentIndex = 0;
         bool sliderIsCaptured = false;
         bool mediaPlayerIsPlaying = false;
         bool mediaPlayerIsPaused = false;
         ImageBrush content = new ImageBrush();
-        VKService vk;
+        IAudioService vk;
+        EmotionGenreRhythmCombination combination;
         public MainWindow()
         {
             InitializeComponent();
@@ -55,13 +55,13 @@ namespace MoodMusic.UI
             timer.Tick += timer_Tick;
             timer.Start();
             mediaPlayer.Volume = 1;
-
+            combination = new EmotionGenreRhythmCombination();
 
         }
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if ((mediaPlayer.Source!=null) && mediaPlayer.NaturalDuration.HasTimeSpan &&!sliderIsCaptured)
+            if ((mediaPlayer.Source != null) && mediaPlayer.NaturalDuration.HasTimeSpan && !sliderIsCaptured)
             {
                 sliderDurationProgress.Minimum = 0;
                 sliderDurationProgress.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
@@ -70,73 +70,40 @@ namespace MoodMusic.UI
             }
             if ((mediaPlayer.Source != null) && (sliderDurationProgress.Value == sliderDurationProgress.Maximum))
             {
-                button_next_Click(this,null);
+                button_next_Click(this, null);
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+      private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            vk = new VKService();
-            vk.onAudioListDownloaded += a => a.ForEach(item => Dispatcher.Invoke(()=>listBox.Items.Add(item)) );
-            new Auth().Show();
+            //var s = new MainViewModel(new DialogWindow()).Loading;
+            //s.Execute(new object());
+            vk = Factory.Default.GetService(Settings1.Default.vkmusic);
+           // vk.onAudioListDownloaded += a => a.ForEach(item => Dispatcher.Invoke(() => listBox.Items.Add(item)));
+            //new Auth().Show();
             Task t = new Task(BackgroundWorker);
             t.Start();
-        }
+        }  
         private void BackgroundWorker()
         {
             while (!Settings1.Default.auth)
             {
                 Thread.Sleep(30);
-            }         
-            vk.GetAudioList( Settings1.Default.id, Settings1.Default.token);
-        }
-        List<EmotionsTypes> emotionlist = new List<EmotionsTypes>();
-        private async void LoadPicture_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-            dlg.FileName = "Image"; // Название файла по умолчанию
-            dlg.DefaultExt = ".jpg"; // Расширение файла по умолчанию
-            dlg.Filter = "Images (.jpg)|*.jpg"; // Фильтер по умолчанию
-            bool? result = dlg.ShowDialog();
-
-            if (result == true)
-            {
-                FileStream s = new FileStream(dlg.FileName, FileMode.Open);
-                EmotionsTypes emotion = await PictureAnalyse.Compare(s);
-                emotionlist.Add(emotion);
-                //dataGrid.ItemsSource = emotionlist;              
-                MessageBox.Show(PictureAnalyse.GetEmotion(emotion).ToString());
-                List<int> list = PictureAnalyse.genres_dictionary[PictureAnalyse.GetEmotion(emotion)];
-
-                List<Audio> newlist = vk.AudioList.Where(mus => list.Contains(mus.genre)).ToList();
-                listBox.Items.Clear();
-                newlist.ForEach(mus => listBox.Items.Add(mus));
-
-                s.Close();
-
             }
-          /*  var player = new MediaPlayer();
-            player.MediaFailed += (s, e1) => MessageBox.Show("Error");
-            player.Open(new Uri(vk.AudioList[1].url, UriKind.RelativeOrAbsolute));
-            player.Play();*/
-           
-
-            //require - design - implem - verific - maintenance
-            //test driven development
-            //red green refactor
-
-        }
-
+            vk.GetAudioList(Settings1.Default.id, Settings1.Default.token);
+            vk.AudioList.ForEach(e=>Dispatcher.Invoke(()=>listBox.Items.Add(e)));
+            Dispatcher.Invoke(() => label_tracks.Content = "Треки: " + listBox.Items.Count.ToString());
+        }       
         private void listBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Stop();
 
-            if (listBox.SelectedItem!=null )
+            if (listBox.SelectedItem != null)
             {
 
                 mediaPlayer.Source = new Uri((listBox.SelectedItem as Audio).url);
                 content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
-                button_play_pause.Background = content;
+                button_play_pause.Background = content;             
                 mediaPlayer.Play();
                 mediaPlayerIsPlaying = true;
                 currentIndex = listBox.SelectedIndex;
@@ -162,7 +129,7 @@ namespace MoodMusic.UI
 
         private void button_next_Click(object sender, RoutedEventArgs e)
         {
-            if (listBox.SelectedIndex!=listBox.Items.Count-1)
+            if (listBox.SelectedIndex != listBox.Items.Count - 1)
             {
                 listBox.SelectedIndex = currentIndex + 1;
             }
@@ -174,7 +141,7 @@ namespace MoodMusic.UI
         }
 
         private void button_play_pause_Click(object sender, RoutedEventArgs e)
-        { 
+        {
             if (mediaPlayerIsPlaying)
             {
                 if (mediaPlayerIsPaused)
@@ -200,13 +167,15 @@ namespace MoodMusic.UI
         {
             if (listBox.SelectedIndex == 0)
             {
-                listBox.SelectedIndex = listBox.Items.Count-1;
+                listBox.SelectedIndex = listBox.Items.Count - 1;
             }
             else
             {
-                listBox.SelectedIndex = currentIndex-1;
+                listBox.SelectedIndex = currentIndex - 1;
             }
             listBox_MouseDoubleClick(this, null);
         }
+
+        
     }
 }

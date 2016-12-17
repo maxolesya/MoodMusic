@@ -5,13 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MoodMusic.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded" Background="Black">
-    <Grid>
+       
+    Title="MoodMusic" Height="350" Width="525" Loaded="Window_Loaded"   Background="Black" DataContext="{Binding Main, Source={StaticResource Locator}}">
+    
+        <Grid>
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="226*"   />
-            <RowDefinition Height="37*"   />
+            <RowDefinition Height="225*"   />
+            <RowDefinition Height="32*"   />
             <RowDefinition  Height="0"/>
-            <RowDefinition MaxHeight="60" Height="60*" />
+            <RowDefinition  Height="65*" />
 
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -23,10 +26,10 @@
                 <ItemsPanelTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="43*" />
+                            <ColumnDefinition Width="59" />
+                            <ColumnDefinition Width="55" />
+                            <ColumnDefinition Width="54" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" MinWidth="274" />
 
                         </Grid.ColumnDefinitions>
@@ -38,22 +41,22 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Margin="0,-1,0,1" Grid.Row="1">
-                <TextBlock Name="durationProgressStatus" Foreground="#FFFF1818" >00:00:00</TextBlock>
+                <TextBlock Name="durationProgressStatus" Foreground="#FFFF9B18" FontFamily="Segoe Script" FontSize="10.667" >00:00:00</TextBlock>
             </StatusBarItem>
             <StatusBarItem Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Stretch">
-                <Slider Name="sliderDurationProgress" Thumb.DragCompleted="sliderDurationProgress_DragCompleted"  Thumb.DragStarted="sliderDurationProgress_DragStarted" ValueChanged="sliderDurationProgress_ValueChanged">
+                <Slider Name="sliderDurationProgress" Thumb.DragCompleted="sliderDurationProgress_DragCompleted"  Thumb.DragStarted="sliderDurationProgress_DragStarted" ValueChanged="sliderDurationProgress_ValueChanged" Foreground="#FFCE5454" Background="Black">
 
                 </Slider>
             </StatusBarItem>
             <StatusBarItem Grid.Column="0" Grid.Row="0" HorizontalContentAlignment="Stretch">
-                <Button Name="button_prev" Margin="0,0,2,0" Height="23"  Click="button_prev_Click">
+                <Button Name="button_prev" Margin="2" Height="23"  Click="button_prev_Click" BorderBrush="#FF1A0202">
                     <Button.Background>
                         <ImageBrush ImageSource="Icons/buttonPrev.png"/>
                     </Button.Background>
                 </Button>
             </StatusBarItem>
             <StatusBarItem Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right"  Width="52" >
-                <Button Name="button_play_pause" Width="42"  Height="24" Click="button_play_pause_Click">
+                <Button Name="button_play_pause" Width="42"  Height="24" Click="button_play_pause_Click" BorderBrush="#FF1A0202">
                     <Button.Background>
                         <ImageBrush ImageSource="Icons/play.png"/>
                     </Button.Background>
@@ -61,18 +64,18 @@
             </StatusBarItem>
 
             <StatusBarItem Grid.Column="2" Grid.Row="0"  >
-                <Button Name="button_next" Height="24" Width="42" Click="button_next_Click">
+                <Button Name="button_next" Height="24" Width="42" Click="button_next_Click" BorderBrush="#FF1A0202">
                     <Button.Background>
                         <ImageBrush ImageSource="Icons/next.png"/>
                     </Button.Background>
                 </Button>
             </StatusBarItem>
             <StatusBarItem Grid.Column="4" Grid.Row="0" HorizontalAlignment="Right">
-                <Label Name="label_tracks" Content="Треки: " Foreground="#FFFC0707" />
+                <Label Name="label_tracks" Content="{Binding TrackNumber}" Foreground="#FFFC8707" FontFamily="Segoe Script"   />
             </StatusBarItem>
         </StatusBar>
 
-        <ListBox Grid.Column="0" x:Name="listBox" VerticalContentAlignment="Stretch"  VerticalAlignment="Top" Grid.Row="0"  MouseDoubleClick="listBox_MouseDoubleClick" >
+        <ListBox Grid.Column="0" x:Name="listBox" ItemsSource="{Binding AudioList}" VerticalContentAlignment="Stretch"  VerticalAlignment="Top" Grid.Row="0"  MouseDoubleClick="listBox_MouseDoubleClick" Foreground="#FFEB9333" FontFamily="MV Boli" >
             <ListBox.Background>
                 <ImageBrush ImageSource="Icons/1334139357-1090009-0064229_www.nevseoboi.com.ua.jpg"/>
             </ListBox.Background>
@@ -85,15 +88,17 @@
 
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0"  Margin="5 0 20 0" FontFamily="Arial" FontSize="12" Text="{Binding artist}"/>
+                        <TextBlock Grid.Column="0"  Margin="5 0 20 0" FontFamily="Segoe Script" FontSize="12" Text="{Binding artist}"/>
 
-                        <TextBlock Grid.Column="2" FontFamily="Helvetica" FontSize="12" Text="{Binding title}"/>
+                        <TextBlock Grid.Column="2" FontFamily="Segoe Script" FontSize="12" Text="{Binding title}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="0" x:Name="button" Content="Загрузить фотографию" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="154" Click="LoadPicture_Click" Height="20" Grid.Row="1" Margin="0,0,0,0.5"/>
+        <Button Grid.Column="0" x:Name="button" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="181" Command="{Binding ProcessPhoto}" Height="21" Grid.Row="1" Margin="0,0,0,0.5" FontFamily="Segoe Script" Foreground="#FFE38926" Background="#FF140101" BorderBrush="#FF150404"  Content="Загрузить фотографию">
+            
+        </Button>
         <!-- <DataGrid Grid.Column="0"  Grid.Row="0" x:Name="dataGrid" VerticalAlignment="Bottom" Margin="10,143,0,0"  Height="29" Width="500"/>-->
-
+       
     </Grid>
 </Window>

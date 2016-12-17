@@ -7,7 +7,7 @@ using MoodMusic.Data.EmotionClasses;
 
 namespace MoodMusic.Data
 {
-    class EmotionGenreRhythmCombination
+   public class EmotionGenreRhythmCombination
     {
         Dictionary<Emotions, List<int>> genreEmotionDictionary = new Dictionary<Emotions, List<int>>();
         public Dictionary<Emotions, List<int>> GenreEmotionDictionary

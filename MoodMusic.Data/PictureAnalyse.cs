@@ -14,10 +14,8 @@ namespace MoodMusic.Data
     {
         public static string APIKey = "622793716f4a438bb6bad8b3aef90088";
         public static string APIKeyPrimary = "f35f0d5041254deba1bfc318e0a6b942";
-        public static EmotionServiceClient Cli = new EmotionServiceClient(APIKey);
-        public static Dictionary<Emotions, List<int>> genres_dictionary = new Dictionary<Emotions, List<int>>();
-        
-       static List<IEmotion> checkList = new List<IEmotion> {
+        public static EmotionServiceClient Cli = new EmotionServiceClient(APIKey);       
+        static List<IEmotion> checkList = new List<IEmotion> {
             new Alarm(),
             new Anger(),
             new Depression(),
@@ -33,9 +31,7 @@ namespace MoodMusic.Data
         new Default()
         };
         public static async Task<EmotionsTypes> Compare(Stream stream)
-        {
-            genres_dictionary.Add(Emotions.Happiness, new List<int> { 22,1,5});
-            genres_dictionary.Add(Emotions.Neutral, new List<int> { 17,4,14});
+        {        
             var r1 = await Cli.RecognizeAsync(stream);          
             if (r1 != null && r1.Length > 0)
             {

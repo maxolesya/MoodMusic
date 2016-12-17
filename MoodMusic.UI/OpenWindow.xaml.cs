@@ -22,7 +22,7 @@ namespace MoodMusic.UI
     public partial class OpenWindow : Window
     {
         public OpenWindow()
-        {
+        {         
             InitializeComponent();
         }
 
@@ -30,6 +30,7 @@ namespace MoodMusic.UI
         {
             if (checkbox_memory.IsChecked == true)
             {
+                Settings1.Default.auth = true;
                 Settings1.Default.datamusic = true;
                 
             }
@@ -37,9 +38,11 @@ namespace MoodMusic.UI
             {
                 Settings1.Default.vkmusic = true;
             }
-           
-            MainWindow m = new MainWindow();
-            m.Show();
+            HintWindow h = new HintWindow();
+            h.Show();
+           // MainWindow m = new MainWindow();
+           // m.Show();
+
             Close();
         }
 
