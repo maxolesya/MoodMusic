@@ -24,7 +24,7 @@ namespace MoodMusic.Data
             }
         }
 
-        private  List<Genre> genres;
+        private List<Genre> genres;
 
         public List<Genre> Genres
         {
@@ -37,16 +37,16 @@ namespace MoodMusic.Data
         {
             genres = new List<Genre>();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourse = "MoodMusic.Data.Data.csv";
-            using (StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(resourse)))
-                {
-                    CsvReader csv = new CsvReader(reader);
-                    csv.Configuration.WillThrowOnMissingField = false;
-                    csv.Configuration.Delimiter = ";";
-                    genres.AddRange(csv.GetRecords<Genre>().ToArray());
-                }
-               
-            
+            string resourse = @"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.Data\Data\Formats.csv";// "MoodMusic.Data.Data.Formats.csv";
+            using (StreamReader reader = new StreamReader(resourse))
+            {
+                CsvReader csv = new CsvReader(reader);
+                csv.Configuration.WillThrowOnMissingField = false;
+                csv.Configuration.Delimiter = ";";
+                genres.AddRange(csv.GetRecords<Genre>().ToArray());
+            }
+
+
         }
         public List<string> mediaExtensions = new List<string> { ".mp3", ".mp4" };
         public List<string> filesfound = new List<string>();
@@ -54,7 +54,6 @@ namespace MoodMusic.Data
         public void GetAudioList(string id, string token)
         {
             audiolist = new List<Audio>();
-            //string path = dwindow.GetPath();
             DirSearch(token);
             foreach (var item in filesfound)
             {
@@ -63,9 +62,13 @@ namespace MoodMusic.Data
                 int _genre = 0;
                 try
                 {
-                    _genre = genres.FirstOrDefault(g => g.Name.Equals(tagFile.Tag.FirstGenre == null ? "" : tagFile.Tag.FirstGenre)).Id;
+                    _genre = genres.FirstOrDefault(g => g.Name.Equals(string.IsNullOrEmpty(tagFile.Tag.FirstGenre) ? "" : tagFile.Tag.FirstGenre)).Id;
                 }
                 catch (ArgumentNullException)
+                {
+
+                }
+                catch (NullReferenceException)
                 {
 
                 }
@@ -85,29 +88,31 @@ namespace MoodMusic.Data
 
         public void DirSearch(string sDir)
         {
-            DirectoryInfo dir = new DirectoryInfo(sDir);
-
-            foreach (var item in dir.GetDirectories())
+            DirectoryInfo item = new DirectoryInfo(sDir);        
+            if (!item.FullName.Equals(@"C:\Windows"))
             {
-                if (!item.FullName.Equals(@"C:\Windows"))
+                try
                 {
-                    try
+                    foreach (var f in item.GetFiles())
                     {
-                        foreach (var f in item.GetFiles())
+                        if (mediaExtensions.Contains(f.Extension))
                         {
-                            if (mediaExtensions.Contains(f.Extension))
-                            {
-                                filesfound.Add(f.FullName);
-                            }
-                        }
-                        DirSearch(item.FullName);
-                    }
-                    catch (System.UnauthorizedAccessException)
-                    {
 
+                            filesfound.Add(f.FullName);
+                        }
                     }
+                    foreach (var f in item.GetDirectories())
+                    {
+                        DirSearch(f.FullName);
+                    }
+
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+
                 }
             }
+            
         }
 
     }
