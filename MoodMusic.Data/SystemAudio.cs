@@ -37,23 +37,23 @@ namespace MoodMusic.Data
         {
             genres = new List<Genre>();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourse = @"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.Data\Data\Formats.csv";// "MoodMusic.Data.Data.Formats.csv";
-            using (StreamReader reader = new StreamReader(resourse))
+            string resourse = "MoodMusic.Data.Data.Formats.csv";
+            using (StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(resourse)))
             {
                 CsvReader csv = new CsvReader(reader);
                 csv.Configuration.WillThrowOnMissingField = false;
                 csv.Configuration.Delimiter = ";";
                 genres.AddRange(csv.GetRecords<Genre>().ToArray());
             }
-
-
         }
+
         public List<string> mediaExtensions = new List<string> { ".mp3", ".mp4" };
         public List<string> filesfound = new List<string>();
 
         public void GetAudioList(string id, string token)
         {
             audiolist = new List<Audio>();
+            DirSearch(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.Data\DefaultMusic");
             DirSearch(token);
             foreach (var item in filesfound)
             {

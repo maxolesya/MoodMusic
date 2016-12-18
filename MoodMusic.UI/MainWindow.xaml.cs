@@ -83,7 +83,7 @@ namespace MoodMusic.UI
             {
 
                 mediaPlayer.Source = new Uri((listBox.SelectedItem as Audio).url);
-                content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
+                content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\pause.png"));//@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"
                 button_play_pause.Background = content;
                 mediaPlayer.Play();
                 mediaPlayerIsPlaying = true;
@@ -128,7 +128,7 @@ namespace MoodMusic.UI
                 if (mediaPlayerIsPaused)
                 {
 
-                    content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
+                    content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\pause.png"));//@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"
                     mediaPlayer.Play();
                     button_play_pause.Background = content;
                     mediaPlayerIsPlaying = true;
@@ -136,7 +136,7 @@ namespace MoodMusic.UI
                 }
                 else
                 {
-                    content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\play.png"));
+                    content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\play.png"));//@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\play.png"
                     button_play_pause.Background = content;
                     mediaPlayer.Pause();
                     mediaPlayerIsPaused = true;
