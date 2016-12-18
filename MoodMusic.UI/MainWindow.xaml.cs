@@ -26,7 +26,6 @@ using System.Media;
 using System.Windows.Threading;
 using System.Windows.Interactivity;
 using MoodMusic.UI.ViewModel;
-using MoodMusic.UI.Properties;
 
 namespace MoodMusic.UI
 {
@@ -69,26 +68,13 @@ namespace MoodMusic.UI
             }
         }
 
-      private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e1)
         {
-            //var s = new MainViewModel(new DialogWindow()).Loading;
-            //s.Execute(new object());
-            vk = Factory.Default.GetService(Settings1.Default.vkmusic);
-           // vk.onAudioListDownloaded += a => a.ForEach(item => Dispatcher.Invoke(() => listBox.Items.Add(item)));
-            //new Auth().Show();
-            Task t = new Task(BackgroundWorker);
-            t.Start();
-        }  
-        private void BackgroundWorker()
-        {
-            while (!Settings1.Default.auth)
-            {
-                Thread.Sleep(30);
-            }
-            vk.GetAudioList(Settings1.Default.id, Settings1.Default.token);
-            vk.AudioList.ForEach(e=>Dispatcher.Invoke(()=>listBox.Items.Add(e)));
-            Dispatcher.Invoke(() => label_tracks.Content = "Треки: " + listBox.Items.Count.ToString());
-        }       
+
+            MainViewModel m = new MainViewModel(new DialogWindow());
+            m.onAudioListDownloaded += a => a.ForEach(item => Dispatcher.Invoke(() => listBox.Items.Add(item)));
+            m.WindowLoading();
+        }
         private void listBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Stop();
@@ -97,8 +83,8 @@ namespace MoodMusic.UI
             {
 
                 mediaPlayer.Source = new Uri((listBox.SelectedItem as Audio).url);
-                content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\pause.png"));
-                button_play_pause.Background = content;             
+                content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
+                button_play_pause.Background = content;
                 mediaPlayer.Play();
                 mediaPlayerIsPlaying = true;
                 currentIndex = listBox.SelectedIndex;
@@ -142,7 +128,7 @@ namespace MoodMusic.UI
                 if (mediaPlayerIsPaused)
                 {
 
-                    content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\pause.png"));
+                    content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"));
                     mediaPlayer.Play();
                     button_play_pause.Background = content;
                     mediaPlayerIsPlaying = true;
@@ -150,7 +136,7 @@ namespace MoodMusic.UI
                 }
                 else
                 {
-                    content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\play.png"));
+                    content.ImageSource = new BitmapImage(new Uri(@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\play.png"));
                     button_play_pause.Background = content;
                     mediaPlayer.Pause();
                     mediaPlayerIsPaused = true;
@@ -171,6 +157,6 @@ namespace MoodMusic.UI
             listBox_MouseDoubleClick(this, null);
         }
 
-        
+
     }
 }

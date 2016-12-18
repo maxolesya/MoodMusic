@@ -6,6 +6,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Linq;
+using System;
+using System.Windows;
 
 namespace MoodMusic.UI.ViewModel
 {
@@ -29,13 +31,13 @@ namespace MoodMusic.UI.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-
+        public event Action<List<Audio>> onAudioListDownloaded;
         private List<Audio> _audioList;
 
-        public List<Audio> AudioList
+        public List<Audio> AudioListMVVM
         {
             get { return _audioList; }
-            set { Set(() => AudioList, ref _audioList, value); }
+            set { Set(() => AudioListMVVM, ref _audioList, value); }
         }
         private string _tracknumber;
 
@@ -47,7 +49,7 @@ namespace MoodMusic.UI.ViewModel
 
         public RelayCommand ProcessPhoto { get; set; }
         public RelayCommand Loading { get; set; }
-        private void WindowLoading()
+        public void WindowLoading()
         {
             Task t = new Task(BackgroundWorker);
             t.Start();
@@ -59,7 +61,11 @@ namespace MoodMusic.UI.ViewModel
                 Thread.Sleep(30);
             }
             _audioService.GetAudioList(Settings1.Default.id, Settings1.Default.token);
-            AudioList = _audioService.AudioList;
+            AudioListMVVM = _audioService.AudioList;
+            if (onAudioListDownloaded!=null)
+            {
+                onAudioListDownloaded(AudioListMVVM);
+            }
            
         }
         private async void Process()
@@ -70,8 +76,8 @@ namespace MoodMusic.UI.ViewModel
                 using (var s = new FileStream(path, FileMode.Open))
                 {
                     EmotionsTypes emotion = await PictureAnalyse.Compare(s);
-                    AudioList = _audioService.AudioList.Where(mus => combination.GenreEmotionDictionary[PictureAnalyse.GetEmotion(emotion)].Contains(mus.genre)).ToList();
-                    TrackNumber = "Треки: " + AudioList.Count.ToString();
+                    AudioListMVVM = _audioService.AudioList.Where(mus => combination.GenreEmotionDictionary[PictureAnalyse.GetEmotion(emotion)].Contains(mus.genre)).ToList();                   
+                    TrackNumber = "Треки: " + AudioListMVVM.Count.ToString();
                 }
             }
 
@@ -79,7 +85,7 @@ namespace MoodMusic.UI.ViewModel
             {
                 // If the program ends up here check that you
                 // have api key and engine id assigned
-                // MessageBox.Show("Error occured", "Google Search");
+                 MessageBox.Show("Error occured");
             }
         }
         public MainViewModel(IDialogWindow dialog)
