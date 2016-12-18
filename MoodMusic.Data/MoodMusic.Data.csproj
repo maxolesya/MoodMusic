@@ -133,7 +133,6 @@
     <EmbeddedResource Include="DefaultMusic\Alarm\Alarm.mp3" />
     <EmbeddedResource Include="DefaultMusic\Alarm\False alarm.mp3" />
     <EmbeddedResource Include="DefaultMusic\Alarm\Viva la vida.mp3" />
-    <EmbeddedResource Include="DefaultMusic\Alarm\Wake me up.mp3" />
     <EmbeddedResource Include="DefaultMusic\Confidence\Default.mp3" />
     <EmbeddedResource Include="DefaultMusic\Confidence\Home.mp3" />
     <EmbeddedResource Include="DefaultMusic\Confidence\Rise.mp3" />
@@ -166,6 +165,21 @@
     <EmbeddedResource Include="DefaultMusic\Surprise\Konskaya sila.mp3" />
     <EmbeddedResource Include="DefaultMusic\Surprise\Surprise, surprise.mp3" />
     <EmbeddedResource Include="DefaultMusic\Surprise\You took me by surprise.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DefaultMusic\Alarm\Wake me up.mp3" />
+    <Content Include="DefaultMusic\Anger\Animal i have become.mp3" />
+    <Content Include="DefaultMusic\Anger\Atlas, Rise!.mp3" />
+    <Content Include="DefaultMusic\Anger\Last Resort.mp3" />
+    <Content Include="DefaultMusic\Anger\War of Change.mp3" />
+    <Content Include="DefaultMusic\Fear\Enter The Sandman.mp3" />
+    <Content Include="DefaultMusic\Fear\Fear of the dark.mp3" />
+    <Content Include="DefaultMusic\Fear\Not Afraid.mp3" />
+    <Content Include="DefaultMusic\Fear\Somebody%27s Watching Me.mp3" />
+    <Content Include="DefaultMusic\Neutral\Blackbird.mp3" />
+    <Content Include="DefaultMusic\Neutral\Diamonds On The Soles Of Her Shoes.mp3" />
+    <Content Include="DefaultMusic\Neutral\Something in the way she moves.mp3" />
+    <Content Include="DefaultMusic\Neutral\Somewhere Only We Know.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
