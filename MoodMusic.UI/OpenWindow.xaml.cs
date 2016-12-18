@@ -35,7 +35,7 @@ namespace MoodMusic.UI
                 Settings1.Default.auth = true;
                 Settings1.Default.datamusic = true;
                 dialog = new AudioDialogWindow();
-                Settings1.Default.token=dialog.GetPath();
+                Settings1.Default.token = dialog.GetPath();
                 MainWindow m = new MainWindow();
                 m.Show();
             }
@@ -45,16 +45,19 @@ namespace MoodMusic.UI
                 HintWindow h = new HintWindow();
                 h.Show();
             }
-
-            // MainWindow m = new MainWindow();
-            // m.Show();
-
             Close();
         }
 
         private void checkbox_vk_Checked(object sender, RoutedEventArgs e)
         {
-            button_open_window_ok.IsEnabled = true;
+            if (checkbox_memory.IsChecked == false)
+            {
+                button_open_window_ok.IsEnabled = true;
+            }
+            else
+            {
+                button_open_window_ok.IsEnabled = false;
+            }
         }
 
         private void checkbox_vk_Unchecked(object sender, RoutedEventArgs e)
@@ -62,6 +65,10 @@ namespace MoodMusic.UI
             if (checkbox_memory.IsChecked == false)
             {
                 button_open_window_ok.IsEnabled = false;
+            }
+            else
+            {
+                button_open_window_ok.IsEnabled = true;
             }
         }
 
@@ -71,11 +78,22 @@ namespace MoodMusic.UI
             {
                 button_open_window_ok.IsEnabled = false;
             }
+            else
+            {
+                button_open_window_ok.IsEnabled = true;
+            }
         }
 
         private void checkbox_memory_Checked(object sender, RoutedEventArgs e)
         {
-            button_open_window_ok.IsEnabled = true;
+            if (checkbox_vk.IsChecked == false)
+            {
+                button_open_window_ok.IsEnabled = true;
+            }
+            else
+            {
+                button_open_window_ok.IsEnabled = false;
+            }
         }
     }
 }

@@ -33,6 +33,5 @@ namespace MoodMusic.Data
             genreEmotionDictionary.Add(Emotions.Confidence, new List<int> { 3,1,7 });
            
         }
-
     }
 }

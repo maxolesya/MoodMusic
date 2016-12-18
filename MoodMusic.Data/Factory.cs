@@ -10,12 +10,10 @@ namespace MoodMusic.Data
     {
         static Factory _default;
 
-        // This is known as the singleton pattern
         public static Factory Default
         {
             get
             {
-                // On first request create a new factory
                 if (_default == null)
                     _default = new Factory();
                 return _default;
@@ -23,7 +21,6 @@ namespace MoodMusic.Data
         }
 
         private IAudioService _audioService;
-
 
         public IAudioService GetService(bool vk_auth)
         {
@@ -41,9 +38,5 @@ namespace MoodMusic.Data
 
             return _audioService;
         }
-
-       
-
-
     }
 }

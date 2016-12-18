@@ -18,7 +18,6 @@ namespace MoodMusic.Data
         public float Surprise { get; set; }
         public override string ToString()
         {
-            
             return "happiness" + Happiness + " fear" + Fear + " " + Anger+" surprise "+Surprise;
         }
     }

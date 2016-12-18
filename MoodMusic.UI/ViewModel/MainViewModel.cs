@@ -32,6 +32,8 @@ namespace MoodMusic.UI.ViewModel
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public event Action<List<Audio>> onAudioListDownloaded;
+        public static event Action onListBoxCleared;
+
         private List<Audio> _audioList;
 
         public List<Audio> AudioListMVVM
@@ -62,11 +64,8 @@ namespace MoodMusic.UI.ViewModel
             }
             _audioService.GetAudioList(Settings1.Default.id, Settings1.Default.token);
             AudioListMVVM = _audioService.AudioList;
-            if (onAudioListDownloaded!=null)
-            {
-                onAudioListDownloaded(AudioListMVVM);
-            }
-           
+            onAudioListDownloaded?.Invoke(AudioListMVVM);
+
         }
         private async void Process()
         {
@@ -76,16 +75,15 @@ namespace MoodMusic.UI.ViewModel
                 using (var s = new FileStream(path, FileMode.Open))
                 {
                     EmotionsTypes emotion = await PictureAnalyse.Compare(s);
+                    onListBoxCleared?.Invoke();
                     AudioListMVVM = _audioService.AudioList.Where(mus => combination.GenreEmotionDictionary[PictureAnalyse.GetEmotion(emotion)].Contains(mus.genre)).ToList();                   
-                    TrackNumber = "Треки: " + AudioListMVVM.Count.ToString();
+                    TrackNumber =PictureAnalyse.GetEmotion(emotion).ToString()+" "+"Треки: " + AudioListMVVM.Count.ToString();
                 }
             }
 
             catch
             {
-                // If the program ends up here check that you
-                // have api key and engine id assigned
-                 MessageBox.Show("Error occured");
+                 MessageBox.Show("Something is wrong with your picture, try to download another one!");
             }
         }
         public MainViewModel(IDialogWindow dialog)
@@ -95,14 +93,6 @@ namespace MoodMusic.UI.ViewModel
             Loading = new RelayCommand(WindowLoading);
             ProcessPhoto = new RelayCommand(Process);
             combination = new EmotionGenreRhythmCombination();
-            ////if (IsInDesignMode)
-            ////{
-            ////    // Code runs in Blend --> create design time data.
-            ////}
-            ////else
-            ////{
-            ////    // Code runs "for real"
-            ////}
         }
     }
 }

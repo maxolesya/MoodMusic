@@ -33,6 +33,7 @@ namespace MoodMusic.Data
                 return genres;
             }
         }
+
         public SystemAudio()
         {
             genres = new List<Genre>();
@@ -53,8 +54,9 @@ namespace MoodMusic.Data
         public void GetAudioList(string id, string token)
         {
             audiolist = new List<Audio>();
-            DirSearch(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.Data\DefaultMusic");
-            DirSearch(token);
+            DirSearch(Environment.CurrentDirectory + "\\DefaultMusic");
+            if(!string.IsNullOrEmpty(token))
+                DirSearch(token);
             foreach (var item in filesfound)
             {
                 TagLib.File tagFile = TagLib.File.Create(item);
@@ -97,7 +99,7 @@ namespace MoodMusic.Data
                     {
                         if (mediaExtensions.Contains(f.Extension))
                         {
-
+                            if(!filesfound.Contains(f.FullName))
                             filesfound.Add(f.FullName);
                         }
                     }
@@ -112,8 +114,6 @@ namespace MoodMusic.Data
 
                 }
             }
-            
         }
-
     }
 }

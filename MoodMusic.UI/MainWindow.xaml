@@ -7,9 +7,9 @@
         mc:Ignorable="d"
        
     Title="MoodMusic" Height="350" Width="525" Loaded="Window_Loaded"   Background="Black" DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
-        <Grid>
-        
+
+    <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="225*"   />
             <RowDefinition Height="32*"   />
@@ -29,8 +29,8 @@
                             <ColumnDefinition Width="59" />
                             <ColumnDefinition Width="55" />
                             <ColumnDefinition Width="54" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" MinWidth="274" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" MinWidth="190" />
 
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -62,7 +62,6 @@
                     </Button.Background>
                 </Button>
             </StatusBarItem>
-
             <StatusBarItem Grid.Column="2" Grid.Row="0"  >
                 <Button Name="button_next" Height="24" Width="42" Click="button_next_Click" BorderBrush="#FF1A0202">
                     <Button.Background>
@@ -96,9 +95,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <Button Grid.Column="0" x:Name="button" HorizontalAlignment="Left"  VerticalAlignment="Bottom" Width="181" Command="{Binding ProcessPhoto}" Height="21" Grid.Row="1" Margin="0,0,0,0.5" FontFamily="Segoe Script" Foreground="#FFE38926" Background="#FF140101" BorderBrush="#FF150404"  Content="Загрузить фотографию">
-            
+
         </Button>
         <!-- <DataGrid Grid.Column="0"  Grid.Row="0" x:Name="dataGrid" VerticalAlignment="Bottom" Margin="10,143,0,0"  Height="29" Width="500"/>-->
-       
+
     </Grid>
 </Window>

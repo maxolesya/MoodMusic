@@ -22,7 +22,5 @@ namespace MoodMusic.UI
                 return null;
             }
         }
-
-
     }
 }

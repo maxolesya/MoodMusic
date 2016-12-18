@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodMusic.UI", "MoodMusic.UI\MoodMusic.UI.csproj", "{10C42981-693F-4273-A9B7-B1D09FDC3CA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoodMusic.Data", "MoodMusic.Data\MoodMusic.Data.csproj", "{7646C184-6D5A-4CC8-90A0-3D533E2FD549}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF Webcam CS", "WPF Webcam CS\WPF Webcam CS.csproj", "{5D93DA61-ECAC-4AFF-B51B-783557645F07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,12 +31,6 @@ Global
 		{7646C184-6D5A-4CC8-90A0-3D533E2FD549}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7646C184-6D5A-4CC8-90A0-3D533E2FD549}.Release|x86.ActiveCfg = Release|Any CPU
 		{7646C184-6D5A-4CC8-90A0-3D533E2FD549}.Release|x86.Build.0 = Release|Any CPU
-		{5D93DA61-ECAC-4AFF-B51B-783557645F07}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{5D93DA61-ECAC-4AFF-B51B-783557645F07}.Debug|x86.ActiveCfg = Debug|x86
-		{5D93DA61-ECAC-4AFF-B51B-783557645F07}.Debug|x86.Build.0 = Debug|x86
-		{5D93DA61-ECAC-4AFF-B51B-783557645F07}.Release|Any CPU.ActiveCfg = Release|x86
-		{5D93DA61-ECAC-4AFF-B51B-783557645F07}.Release|x86.ActiveCfg = Release|x86
-		{5D93DA61-ECAC-4AFF-B51B-783557645F07}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

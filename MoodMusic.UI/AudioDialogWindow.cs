@@ -20,10 +20,10 @@ namespace MoodMusic.UI
                 if (Directory.Exists(dialog.SelectedPath))
                     return dialog.SelectedPath;
                 else
-                    return null;
+                    return Environment.CurrentDirectory + "\\DefaultMusic";
             }
             else
-                return null;
+                return Environment.CurrentDirectory + "\\DefaultMusic";
         }
     }
 }

@@ -27,7 +27,6 @@ namespace MoodMusic.Data
           
             using (var client = new HttpClient())
             {
-
                 var result =  client.GetStringAsync($"https://api.vk.com/method/audio.get?owner_id={id}&need_user=0&access_token={token}").Result;
                 JToken jtoken = JToken.Parse(result);
                 audiolist = jtoken["response"].Children().Skip(1).Select(c => c.ToObject<Audio>()).ToList();
@@ -35,11 +34,7 @@ namespace MoodMusic.Data
                 {
                     throw new ArgumentException("В Вашем аккаунте VK нет аудиозаписей");
                 }
-                if (onAudioListDownloaded != null)
-                {
-                    onAudioListDownloaded(audiolist);
-                }
-
+                onAudioListDownloaded?.Invoke(audiolist);
             }
         }
     }

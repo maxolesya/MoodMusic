@@ -38,19 +38,22 @@ namespace MoodMusic.UI
         bool sliderIsCaptured = false;
         bool mediaPlayerIsPlaying = false;
         bool mediaPlayerIsPaused = false;
+        MainViewModel m;
+        BitmapImage b;
         ImageBrush content = new ImageBrush();
-        IAudioService vk;
         EmotionGenreRhythmCombination combination;
         public MainWindow()
         {
             InitializeComponent();
+            m = new MainViewModel(new DialogWindow());
+            MainViewModel.onListBoxCleared += () => listBox.Items.Clear();
+            m.onAudioListDownloaded += a => a.ForEach(item => Dispatcher.Invoke(() => listBox.Items.Add(item)));
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
             mediaPlayer.Volume = 1;
             combination = new EmotionGenreRhythmCombination();
-
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -60,7 +63,6 @@ namespace MoodMusic.UI
                 sliderDurationProgress.Minimum = 0;
                 sliderDurationProgress.Maximum = mediaPlayer.NaturalDuration.TimeSpan.TotalSeconds;
                 sliderDurationProgress.Value = mediaPlayer.Position.TotalSeconds;
-
             }
             if ((mediaPlayer.Source != null) && (sliderDurationProgress.Value == sliderDurationProgress.Maximum))
             {
@@ -70,26 +72,23 @@ namespace MoodMusic.UI
 
         private void Window_Loaded(object sender, RoutedEventArgs e1)
         {
-
-            MainViewModel m = new MainViewModel(new DialogWindow());
-            m.onAudioListDownloaded += a => a.ForEach(item => Dispatcher.Invoke(() => listBox.Items.Add(item)));
             m.WindowLoading();
         }
+
         private void listBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             mediaPlayer.Stop();
 
             if (listBox.SelectedItem != null)
             {
-
                 mediaPlayer.Source = new Uri((listBox.SelectedItem as Audio).url);
-                content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\pause.png"));//@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"
+                b = new BitmapImage(new Uri("pause.png", UriKind.Relative));
+                content.ImageSource = b;
                 button_play_pause.Background = content;
                 mediaPlayer.Play();
                 mediaPlayerIsPlaying = true;
                 currentIndex = listBox.SelectedIndex;
             }
-
         }
 
         private void sliderDurationProgress_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -123,12 +122,13 @@ namespace MoodMusic.UI
 
         private void button_play_pause_Click(object sender, RoutedEventArgs e)
         {
+            b = new BitmapImage();
             if (mediaPlayerIsPlaying)
             {
                 if (mediaPlayerIsPaused)
                 {
-
-                    content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\pause.png"));//@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\pause.png"
+                    b = new BitmapImage(new Uri("pause.png", UriKind.Relative));
+                    content.ImageSource = b;
                     mediaPlayer.Play();
                     button_play_pause.Background = content;
                     mediaPlayerIsPlaying = true;
@@ -136,8 +136,8 @@ namespace MoodMusic.UI
                 }
                 else
                 {
-                    content.ImageSource = new BitmapImage(new Uri(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.UI\Icons\play.png"));//@"C:\Олеся\Visual Studio\MoodMusic\MoodMusic.UI\Icons\play.png"
-                    button_play_pause.Background = content;
+                    b = new BitmapImage(new Uri("play.png", UriKind.Relative));
+                    content.ImageSource = b;
                     mediaPlayer.Pause();
                     mediaPlayerIsPaused = true;
                 }
@@ -156,7 +156,5 @@ namespace MoodMusic.UI
             }
             listBox_MouseDoubleClick(this, null);
         }
-
-
     }
 }
