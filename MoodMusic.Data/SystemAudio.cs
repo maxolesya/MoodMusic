@@ -14,7 +14,7 @@ namespace MoodMusic.Data
     public class SystemAudio : IAudioService
     {
 
-        private List<Audio> audiolist;
+        private List<Audio> audiolist = new List<Audio>();
 
         public List<Audio> AudioList
         {
@@ -24,7 +24,7 @@ namespace MoodMusic.Data
             }
         }
 
-        private  List<Genre> genres;
+        private List<Genre> genres;
 
         public List<Genre> Genres
         {
@@ -37,29 +37,48 @@ namespace MoodMusic.Data
         {
             genres = new List<Genre>();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            string resourse = "MoodMusic.Data.Data.csv";
+            string resourse = "MoodMusic.Data.Data.Formats.csv";
             using (StreamReader reader = new StreamReader(assembly.GetManifestResourceStream(resourse)))
-                {
-                    CsvReader csv = new CsvReader(reader);
-                    csv.Configuration.WillThrowOnMissingField = false;
-                    csv.Configuration.Delimiter = ";";
-                    genres.AddRange(csv.GetRecords<Genre>().ToArray());
-                }
-               
-            
+            {
+                CsvReader csv = new CsvReader(reader);
+                csv.Configuration.WillThrowOnMissingField = false;
+                csv.Configuration.Delimiter = ";";
+                genres.AddRange(csv.GetRecords<Genre>().ToArray());
+            }
         }
+
         public List<string> mediaExtensions = new List<string> { ".mp3", ".mp4" };
+
         public List<string> filesfound = new List<string>();
 
         public void GetAudioList(string id, string token)
         {
             audiolist = new List<Audio>();
-            //string path = dwindow.GetPath();
+            int i = 0;
+            DirectoryInfo defdir = new DirectoryInfo(@"C:\Users\belousovnikita\Source\Repos\MoodMusic\MoodMusic.Data\DefaultMusic");
+            foreach (var folder in defdir.GetDirectories())
+            {
+                foreach (var file in folder.GetFiles())
+                {
+                    TagLib.File tagf = TagLib.File.Create(file.FullName);
+                    Audio audio = new Audio
+                    {
+                        aid = i,
+                        artist = tagf.Tag.FirstComposer,
+                        title = tagf.Tag.Title,
+                        duration = (int)(tagf.Properties.Duration.TotalSeconds),
+                        url = file.FullName,
+                        genre = genres.FirstOrDefault(g => g.Name.Equals(tagf.Tag.FirstGenre == null ? "" : tagf.Tag.FirstGenre)).Id
+                    };
+                    audiolist.Add(audio);
+                    i++;
+                }
+            }
             DirSearch(token);
             foreach (var item in filesfound)
             {
                 TagLib.File tagFile = TagLib.File.Create(item);
-                int i = 0;
+
                 int _genre = 0;
                 try
                 {
@@ -86,26 +105,45 @@ namespace MoodMusic.Data
         public void DirSearch(string sDir)
         {
             DirectoryInfo dir = new DirectoryInfo(sDir);
-
-            foreach (var item in dir.GetDirectories())
+            if (dir.GetDirectories().Count() != 0)
             {
-                if (!item.FullName.Equals(@"C:\Windows"))
+                if (!dir.FullName.Equals(@"C:\Windows"))
                 {
-                    try
+                    foreach (var item in dir.GetDirectories())
                     {
-                        foreach (var f in item.GetFiles())
+                        try
                         {
-                            if (mediaExtensions.Contains(f.Extension))
+                            foreach (var f in item.GetFiles())
                             {
-                                filesfound.Add(f.FullName);
+                                if (mediaExtensions.Contains(f.Extension))
+                                {
+                                    filesfound.Add(f.FullName);
+                                }
                             }
+                            DirSearch(item.FullName);
                         }
-                        DirSearch(item.FullName);
-                    }
-                    catch (System.UnauthorizedAccessException)
-                    {
+                        catch (System.UnauthorizedAccessException)
+                        {
 
+                        }
                     }
+                }
+            }
+            else
+            {
+                try
+                {
+                    foreach (var f in dir.GetFiles())
+                    {
+                        if (mediaExtensions.Contains(f.Extension))
+                        {
+                            filesfound.Add(f.FullName);
+                        }
+                    }
+                }
+                catch (System.UnauthorizedAccessException)
+                {
+
                 }
             }
         }

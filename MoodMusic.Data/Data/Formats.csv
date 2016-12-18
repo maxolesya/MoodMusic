@@ -1,4 +1,4 @@
-Id;Genre
+Id;Name
 1;Rock
 2;Pop
 3;Rap&Hip-hop
@@ -8,8 +8,8 @@ Id;Genre
 7;Metal
 21;Alternative
 8;Dubstep
-1001;Jazz & Blues
-10;Drum & Bass
+1001;Jazz&Blues
+10;Drum&Bass
 11;Trance
 12;Chanson
 13;Ethnic

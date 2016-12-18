@@ -84,8 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Artist.cs" />
-    <Compile Include="AudioItem.cs" />
     <Compile Include="Audio.cs" />
+    <Compile Include="AudioItem.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="EmotionClasses\Alarm.cs" />
     <Compile Include="EmotionClasses\Anger.cs" />
@@ -121,7 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Data\Formats.csv" />
+    <EmbeddedResource Include="Data\Formats.csv" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,44 @@
       <DependentUpon>201612142343299_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="DefaultMusic\Alarm\Alarm.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Alarm\False alarm.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Alarm\Viva la vida.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Alarm\Wake me up.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Confidence\Default.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Confidence\Home.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Confidence\Rise.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Confidence\Rule the world.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Contempt\Contempt.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Contempt\I hate everything about you.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Contempt\Last to know.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Contempt\Riot.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Depression\Atmosphere.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Depression\Blue moon.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Depression\Comfortable numb.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Depression\Lua.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Disgust\Bubble gum.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Disgust\Dismissed.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Disgust\Nadoelo.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Disgust\Predatel%27.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Hapiness\Budil%27nik.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Hapiness\Eto ne devochka.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Hapiness\Op heroina.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Hapiness\When we were young.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Joy\Et si tu nexistais pasEt si tu neexistais pas.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Joy\Get lucky.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Joy\Holiday.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Joy\Illusions.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Sadness\I will return.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Sadness\Impossible.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Sadness\Mockinbird.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Sadness\Ne zabivai.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Surprise\Devushka prostaya.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Surprise\Konskaya sila.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Surprise\Surprise, surprise.mp3" />
+    <EmbeddedResource Include="DefaultMusic\Surprise\You took me by surprise.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">

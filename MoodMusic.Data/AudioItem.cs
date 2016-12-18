@@ -6,21 +6,10 @@ using System.Threading.Tasks;
 
 namespace MoodMusic.Data
 {
-    public class Audio
-    {   //https://vk.com/dev/objects/audio_genres
-
-        public int aid { get; set; }
-        public int owner_id { get; set; }
-        public string artist { get; set; }
-        public string title { get; set; }
-        public int duration { get; set; }
-        public string url { get; set; }
-        public string lurics_id { get; set; }
-        public int genre { get; set; }
-        public override string ToString()
-        {
-            return artist + " - " + title;
-        }
+    public class AudioItem
+    {
+        public string Title { get; set; }
+        public string Artist { get; set; }
+        public string Genre { get; set; }
     }
-
 }
